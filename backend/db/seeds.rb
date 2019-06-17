@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+User.destroy_all
+Searchcity.destroy_all
+Favouritecity.destroy_all
+xabi = User.create(username: "Xabi")
+london = Searchcity.create(user: xabi, citysearch: "london", countrysesrch: "uk")

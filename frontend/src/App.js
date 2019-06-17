@@ -16,27 +16,44 @@ class App extends React.Component {
   };
 
   PostSearch = (city, country) => {
-    // e.preventDefault();
-    return fetch("http://localhost:3000/searchcities", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        citysearch: city,
-        countrysesrch: country
+    const search = {
+      citysearch: city.toLowerCase(),
+      countrysesrch: country.toLowerCase()
+    };
+    if (
+      this.state.search.filter(
+        search =>
+          search.citysearch === city.toLowerCase() &&
+          search.countrysesrch === country.toLowerCase()
+      ).length > 0
+    ) {
+      return null;
+    } else {
+      fetch("http://localhost:3000/searchcities", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(search)
       })
-    }).then(resp => resp.json());
+        .then(resp => resp.json())
+        .then(newSearch => {
+          debugger;
+          this.setState({ search: [...newSearch, this.state.search] });
+        });
+    }
   };
 
   componentDidMount() {
-    fetch(`http://localhost:3000/searchcities`).then(resp => resp.json());
+    fetch(`http://localhost:3000/searchcities`)
+      .then(resp => resp.json())
+      .then(searches => this.setState({ search: searches.reverse() }));
   }
 
   getWeather = e => {
     e.preventDefault();
-    const city = e.target.elements.city.value;
-    const country = e.target.elements.country.value;
+    const city = e.target.elements.city.value.toLowerCase();
+    const country = e.target.elements.country.value.toLowerCase();
     fetch(
       `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&units=metric&APPID=cdce26b8335ca17210a83d32bec597e0`
     )
