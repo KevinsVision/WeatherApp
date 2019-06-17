@@ -9,4 +9,4 @@ User.destroy_all
 Searchcity.destroy_all
 Favouritecity.destroy_all
 xabi = User.create(username: "Xabi")
-london = Searchcity.create(user: xabi, citysearch: "london", countrysesrch: "uk")
+# london = Searchcity.create(user: xabi, citysearch: "london", countrysesrch: "gb")

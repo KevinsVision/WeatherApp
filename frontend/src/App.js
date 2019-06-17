@@ -12,10 +12,10 @@ class App extends React.Component {
     humidity: null,
     description: null,
     error: null,
-    search: null
+    search: []
   };
 
-  PostSearch = (city, country) => {
+  postSearch = (city, country) => {
     const search = {
       citysearch: city.toLowerCase(),
       countrysesrch: country.toLowerCase()
@@ -39,7 +39,7 @@ class App extends React.Component {
         .then(resp => resp.json())
         .then(newSearch => {
           debugger;
-          this.setState({ search: [...newSearch, this.state.search] });
+          this.setState({ search: [newSearch, ...this.state.search] });
         });
     }
   };
@@ -70,7 +70,7 @@ class App extends React.Component {
               error: ""
             },
             () => {
-              this.PostSearch(city, country);
+              this.postSearch(resp.name, resp.sys.country);
             }
           );
         } else {
