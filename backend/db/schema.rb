@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_141708) do
 
   create_table "favouritecities", force: :cascade do |t|
     t.string "cityfavourite"
+    t.string "countryfavourite"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -25,6 +26,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_141708) do
 
   create_table "searchcities", force: :cascade do |t|
     t.string "citysearch"
+    t.string "countrysesrch"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
