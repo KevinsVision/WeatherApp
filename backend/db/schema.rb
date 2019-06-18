@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 2019_06_14_141708) do
   enable_extension "plpgsql"
 
   create_table "favouritecities", force: :cascade do |t|
-    t.string "cityfavourite"
-    t.string "countryfavourite"
+    t.string "city"
+    t.string "country"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(version: 2019_06_14_141708) do
   end
 
   create_table "searchcities", force: :cascade do |t|
-    t.string "citysearch"
-    t.string "countrysesrch"
+    t.string "city"
+    t.string "country"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

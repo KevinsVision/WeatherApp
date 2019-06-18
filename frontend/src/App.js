@@ -2,7 +2,8 @@ import React from "react";
 import Form from "./components/form";
 import Welcome from "./components/welcome";
 import Weather from "./components/weather";
-import Search from "./components/search";
+import SearchFavourite from "./components/searchFavourite";
+import { Route } from "react-router-dom";
 
 class App extends React.Component {
   state = {
@@ -12,19 +13,20 @@ class App extends React.Component {
     humidity: null,
     description: null,
     error: null,
-    search: []
+    search: [],
+    favourite: []
   };
 
   postSearch = (city, country) => {
     const search = {
-      citysearch: city.toLowerCase(),
-      countrysesrch: country.toLowerCase()
+      city: city.toLowerCase(),
+      country: country.toLowerCase()
     };
     if (
       this.state.search.filter(
         search =>
-          search.citysearch === city.toLowerCase() &&
-          search.countrysesrch === country.toLowerCase()
+          search.city === city.toLowerCase() &&
+          search.country === country.toLowerCase()
       ).length > 0
     ) {
       return null;
@@ -38,8 +40,35 @@ class App extends React.Component {
       })
         .then(resp => resp.json())
         .then(newSearch => {
-          debugger;
           this.setState({ search: [newSearch, ...this.state.search] });
+        });
+    }
+  };
+
+  postFavourite = (city, country) => {
+    const favourite = {
+      city: city.toLowerCase(),
+      country: country.toLowerCase()
+    };
+    if (
+      this.state.favourite.filter(
+        favourite =>
+          favourite.city === city.toLowerCase() &&
+          favourite.country === country.toLowerCase()
+      ).length > 0
+    ) {
+      return null;
+    } else {
+      fetch("http://localhost:3000/favouritecities", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(favourite)
+      })
+        .then(resp => resp.json())
+        .then(newfavourite => {
+          this.setState({ favourite: [newfavourite, ...this.state.favourite] });
         });
     }
   };
@@ -48,12 +77,12 @@ class App extends React.Component {
     fetch(`http://localhost:3000/searchcities`)
       .then(resp => resp.json())
       .then(searches => this.setState({ search: searches.reverse() }));
+    fetch(`http://localhost:3000/favouritecities`)
+      .then(resp => resp.json())
+      .then(favourite => this.setState({ favourite: favourite.reverse() }));
   }
 
-  getWeather = e => {
-    e.preventDefault();
-    const city = e.target.elements.city.value.toLowerCase();
-    const country = e.target.elements.country.value.toLowerCase();
+  getWeather = (city, country) => {
     fetch(
       `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&units=metric&APPID=cdce26b8335ca17210a83d32bec597e0`
     )
@@ -89,11 +118,21 @@ class App extends React.Component {
             <div className="container">
               <div className="row">
                 <div className="col-xs-5 title-container">
-                  <Welcome />
+                  {/* Added Routes */}
+                  <Route exact path="/welcome" component={Welcome} />
                 </div>
                 <div className="col-xs-7 form-container">
-                  <Search />
-                  <Form loadWeather={this.getWeather} />
+                  <SearchFavourite
+                    array={this.state.search}
+                    getWeather={this.getWeather}
+                    defaultText="Previous Searches"
+                  />
+                  <Form getWeather={this.getWeather} />
+                  <SearchFavourite
+                    array={this.state.favourite}
+                    getWeather={this.getWeather}
+                    defaultText="Favourites"
+                  />
                   <Weather
                     temperature={this.state.temperature}
                     city={this.state.city}
@@ -101,6 +140,7 @@ class App extends React.Component {
                     humidity={this.state.humidity}
                     description={this.state.description}
                     error={this.state.error}
+                    postFavourite={this.postFavourite}
                   />
                 </div>
               </div>
