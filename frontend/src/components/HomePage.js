@@ -96,11 +96,21 @@ class HomePage extends React.Component {
     } else {
       fetch(`http://localhost:3000/searchcities`)
         .then(resp => resp.json())
-        .then(searches => this.setState({ searches: searches.reverse() }));
+        .then(searches =>
+          this.setState({
+            searches: searches
+              .reverse()
+              .filter(search => search.user_id === this.props.user.id)
+          })
+        );
       fetch(`http://localhost:3000/favouritecities`)
         .then(resp => resp.json())
         .then(favourites =>
-          this.setState({ favourites: favourites.reverse() })
+          this.setState({
+            favourites: favourites
+              .reverse()
+              .filter(favourite => favourite.user_id === this.props.user.id)
+          })
         );
     }
   }
@@ -142,8 +152,8 @@ class HomePage extends React.Component {
             <div className="container">
               <div className="row">
                 <div className="col-xs-5 title-container">
-                  <Welcome 
-                  // username={username} 
+                  <Welcome
+                  // username={username}
                   />
                 </div>
                 <div className="col-xs-7 form-container">
