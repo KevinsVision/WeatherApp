@@ -3,11 +3,9 @@ import Form from "./form";
 import Welcome from "./welcome";
 import Weather from "./weather";
 import SearchFavourite from "./searchFavourite";
-import { Route } from "react-router-dom";
 
 class HomePage extends React.Component {
   state = {
-    // username: "",
     temperature: null,
     city: null,
     country: null,
@@ -17,14 +15,6 @@ class HomePage extends React.Component {
     searches: [],
     favourites: []
   };
-
-  // signin = username => {
-  //   this.setState({ username });
-  // };
-
-  // signout = () => {
-  //   this.setState({ username: "" });
-  // };
 
   postSearch = (city, country) => {
     const search = {
@@ -36,7 +26,8 @@ class HomePage extends React.Component {
       this.state.searches.filter(
         search =>
           search.city === city.toLowerCase() &&
-          search.country === country.toLowerCase()
+          search.country === country.toLowerCase() &&
+          search.user_id === this.props.user.id
       ).length > 0
     ) {
       return null;
@@ -65,7 +56,8 @@ class HomePage extends React.Component {
       this.state.favourites.filter(
         favourite =>
           favourite.city === city.toLowerCase() &&
-          favourite.country === country.toLowerCase()
+          favourite.country === country.toLowerCase() &&
+          favourite.user_id === this.props.user.id
       ).length > 0
     ) {
       return null;
@@ -86,7 +78,17 @@ class HomePage extends React.Component {
     }
   };
 
-  deleteFavourite = () => {};
+  deleteFavourite = favouriteToDelete => {
+    const NewFavouriteArray = this.state.favourites.filter(
+      favourite => favourite !== favouriteToDelete
+    );
+    return fetch(
+      `http://localhost:3000/favouritecities/${favouriteToDelete.id}`,
+      {
+        method: "DELETE"
+      }
+    ).then(this.setState({ favourites: NewFavouriteArray }));
+  };
 
   componentDidMount() {
     if (this.props.user === null) {
@@ -132,6 +134,7 @@ class HomePage extends React.Component {
       .catch(error => console.log(error));
   };
   render() {
+    // const { username } = this.props.user;
     return (
       <div>
         <div className="wrapper">
@@ -139,8 +142,9 @@ class HomePage extends React.Component {
             <div className="container">
               <div className="row">
                 <div className="col-xs-5 title-container">
-                  {/* Added Routes */}
-                  <Route exact path="/" component={Welcome} />
+                  <Welcome 
+                  // username={username} 
+                  />
                 </div>
                 <div className="col-xs-7 form-container">
                   <SearchFavourite
@@ -164,6 +168,7 @@ class HomePage extends React.Component {
                     postFavourite={this.postFavourite}
                     deleteFavourite={this.deleteFavourite}
                     favourites={this.state.favourites}
+                    user={this.props.user}
                   />
                 </div>
               </div>

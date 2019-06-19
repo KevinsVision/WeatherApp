@@ -23,9 +23,9 @@ class FavouritecitiesController < ApplicationController
   end
 
   def destroy
-    favouritecity = Favouritecity.find(params[:id])
-    favouritecity.destroy
-    render json: favouritecity
+      favouritecity = Favouritecity.find(params[:id])
+      favouritecity.destroy
+      render json: favouritecity
   end
 
 end

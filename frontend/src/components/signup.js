@@ -3,9 +3,9 @@ import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 
-import { signin } from "../services/api";
+import { signup } from "../services/api";
 
-class Login extends Component {
+class NewUser extends Component {
   constructor(props) {
     super(props);
 
@@ -27,21 +27,21 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    signin(this.state.username, this.state.password)
+    signup(this.state.username, this.state.password)
       .then(userData => {
-        console.log("signin then:", userData);
+        console.log("signup then:", userData);
 
         if (userData.error) {
           alert(userData.error);
-          this.props.history.push("/login");
+          this.props.history.push("/newUser");
         } else {
-          this.props.signin(userData);
+          this.props.signup(userData);
           this.props.history.push("/");
         }
       })
       .catch(err => {
-        this.props.history.push("login");
-        console.log("signin catch:", err);
+        this.props.history.push("newUser");
+        console.log("signup catch:", err);
       });
   };
 
@@ -49,7 +49,7 @@ class Login extends Component {
     return (
       <div className="wrapper">
         <div className="Login">
-          <h1 className="logSignText">Please Log In</h1>
+          <h1 className="logSignText">Please Sign Up</h1>
           <form onSubmit={this.handleSubmit}>
             <FormGroup controlId="username" size="lg">
               <FormLabel>Name</FormLabel>
@@ -76,13 +76,13 @@ class Login extends Component {
               disabled={!this.validateForm()}
               type="submit"
             >
-              <Link to="/welcome">Login</Link>
-              {/* Login */}
+              <Link to="/welcome">NewUser</Link>
+              {/* newUser */}
             </Button>
             <br />
             <br />
             <br />
-            <h3 className="logSignText">Or Sign Up for New Users</h3>
+            <h3 className="logSignText">Login for Existing Users</h3>
             <Button
               onClick={this.handleSubmit}
               variant="outline-warning"
@@ -91,8 +91,8 @@ class Login extends Component {
               disabled={!this.validateForm()}
               type="submit"
             >
-              <Link to="/signup">Sign Up</Link>
-              {/* Login */}
+              <Link to="/login">Login</Link>
+              {/* newUser */}
             </Button>
           </form>
         </div>
@@ -101,4 +101,4 @@ class Login extends Component {
   }
 }
 
-export default withRouter(Login);
+export default withRouter(NewUser);

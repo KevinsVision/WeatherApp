@@ -1,12 +1,23 @@
 import React from "react";
 class Weather extends React.Component {
   isFavourite = () => {
-    const { favourites, city, country } = this.props;
+    const { favourites, city, country, user } = this.props;
     return favourites.some(
       favourite =>
         favourite.city.toLowerCase() === city.toLowerCase() &&
-        favourite.country.toLowerCase() === country.toLowerCase()
+        favourite.country.toLowerCase() === country.toLowerCase() &&
+        favourite.user_id === user.id
     );
+  };
+
+  getFavouite = () => {
+    const { favourites, city, country, user } = this.props;
+    return favourites.filter(
+      favourite =>
+        favourite.city === city.toLowerCase() &&
+        favourite.country === country.toLowerCase() &&
+        favourite.user_id === user.id
+    )[0];
   };
 
   render() {
@@ -16,9 +27,7 @@ class Weather extends React.Component {
           (this.isFavourite() ? (
             <button
               className="button"
-              onClick={e =>
-                this.props.deleteFavourite(this.props.city, this.props.country)
-              }
+              onClick={e => this.props.deleteFavourite(this.getFavouite())}
             >
               Remove from Favourites
             </button>

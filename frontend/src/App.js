@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import Login from "./components/login";
+import NewUser from "./components/signup";
 
 class App extends React.Component {
   state = {
@@ -19,6 +20,11 @@ class App extends React.Component {
       <div className="app">
         <Switch>
           {/* created new component */}
+          <Route
+            exact
+            path="/signup"
+            component={props => <NewUser {...props} signin={signin} />}
+          />
           <Route
             exact
             path="/login"

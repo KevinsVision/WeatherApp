@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
     def index
         @users = User.all
-        render json: @users
+        render json: @users, except: [:created_at, :updated_at, :password_digest]
       end
 
     def show
@@ -21,6 +21,14 @@ class UsersController < ApplicationController
             render json: { error: 'Invalid username/password combination.'}, status: 401
         end
     end
-    
 
+    def signup
+        user = User.new(username: params[:username], password: params[:password])
+        if user.save
+          render json: user
+        else
+          render json: {error: "Username Already Taken!"}, status: 400
+        end
+    end
+    
 end

@@ -3,7 +3,10 @@ const Welcome = props => {
   return (
     <div>
       <h1 className="title-container__title">
-        <b>Welcome!</b>
+        <b>
+          Welcome
+          {/* {props.username} */}!
+        </b>
       </h1>
       <p className="title-container__subtitle">
         {" "}

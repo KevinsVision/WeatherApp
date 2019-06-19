@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   resources :favouritecities
   resources :searchcities
   post '/signin', to: 'users#signin'
+  post '/signup', to: 'users#signup'
+
 end
