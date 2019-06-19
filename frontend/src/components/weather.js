@@ -1,19 +1,37 @@
 import React from "react";
 class Weather extends React.Component {
+  isFavourite = () => {
+    const { favourites, city, country } = this.props;
+    return favourites.some(
+      favourite =>
+        favourite.city.toLowerCase() === city.toLowerCase() &&
+        favourite.country.toLowerCase() === country.toLowerCase()
+    );
+  };
+
   render() {
     return (
       <>
-        {this.props.description && (
-          <button
-            style={{ float: "right" }}
-            className=""
-            onClick={e =>
-              this.props.postFavourite(this.props.city, this.props.country)
-            }
-          >
-            Add to Favourites
-          </button>
-        )}
+        {this.props.description &&
+          (this.isFavourite() ? (
+            <button
+              className="button"
+              onClick={e =>
+                this.props.deleteFavourite(this.props.city, this.props.country)
+              }
+            >
+              Remove from Favourites
+            </button>
+          ) : (
+            <button
+              className="button"
+              onClick={e =>
+                this.props.postFavourite(this.props.city, this.props.country)
+              }
+            >
+              Add to Favourites
+            </button>
+          ))}
         <div className="weather-info">
           {this.props.country && this.props.city && (
             <p className="weather__key">

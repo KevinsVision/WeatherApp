@@ -80,7 +80,6 @@ input:-webkit-autofill {
 }
 
 button {
-  text: #14212e;
   border: 0;
   padding: 8px 20px;
   margin: 0 2px;
@@ -92,6 +91,8 @@ button {
   background-color: #ffc965;
   color: #fff;
   font-weight: bold;
+  float: right;
+  width: 22rem;
 }
 
 button:active {

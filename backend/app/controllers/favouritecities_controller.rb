@@ -14,12 +14,18 @@ class FavouritecitiesController < ApplicationController
   end
 
   def create
-      favouritecity = Favouritecity.new(user_id: User.all[0].id, city: params[:city], country: params[:country])
+      favouritecity = Favouritecity.new(user_id: params[:user_id], city: params[:city], country: params[:country])
       if favouritecity.save
         render json: favouritecity
       else
         render json: {error: "Unable to create Favourite."}, status: 400
       end
-    end
+  end
+
+  def destroy
+    favouritecity = Favouritecity.find(params[:id])
+    favouritecity.destroy
+    render json: favouritecity
+  end
 
 end

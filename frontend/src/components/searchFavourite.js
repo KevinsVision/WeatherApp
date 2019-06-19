@@ -11,20 +11,21 @@ const SearchFavourite = props => {
 
   return (
     <select className="custom-select" onChange={handleChange} name="select">
-      <option value="" disabled selected>
+      <option disabled selected>
         {props.defaultText}
       </option>
-      {props.array.slice(0, 5).map((location, index) => (
-        <option
-          key={index}
-          value={`${capitalizeFirstLetter(
-            location.city
-          )},${capitalizeFirstLetter(location.country)}`}
-        >
-          {capitalizeFirstLetter(location.city)},{" "}
-          {capitalizeFirstLetter(location.country)}
-        </option>
-      ))}
+      {props.array.slice(0, 5).map((location, index) => {
+        const capitalizedCity = capitalizeFirstLetter(location.city);
+        const capitalizedCountry = capitalizeFirstLetter(location.country);
+        return (
+          <option
+            key={index}
+            value={`${capitalizedCity},${capitalizedCountry}`}
+          >
+            {capitalizedCity}, {capitalizedCountry}
+          </option>
+        );
+      })}
     </select>
   );
 };

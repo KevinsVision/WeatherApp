@@ -14,7 +14,8 @@ class SearchcitiesController < ApplicationController
     end
 
     def create
-        searchcity = Searchcity.new(user_id: User.all[0].id, city: params[:city], country: params[:country])
+
+        searchcity = Searchcity.new(user_id: params[:user_id], city: params[:city], country: params[:country])
         if searchcity.save
           render json: searchcity
         else

@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   resources :users
   resources :favouritecities
   resources :searchcities
+  post '/signin', to: 'users#signin'
 end

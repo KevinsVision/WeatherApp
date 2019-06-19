@@ -12,7 +12,7 @@ const Form = props => {
     <form onSubmit={handleSubmit}>
       <input type="text" name="city" placeholder="City..." />
       <input type="text" name="country" placeholder="Country..." />
-      <button style={{ float: "right", width: "17rem" }}>Get Weather</button>
+      <button>Get Weather</button>
     </form>
   );
 };
