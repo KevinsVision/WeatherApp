@@ -1,10 +1,6 @@
 import React from "react";
 
 class SearchFavourite extends React.Component {
-  state = {
-    selected: ""
-  };
-
   handleChange = e => {
     const [city, country] = e.target.value.split(",");
     this.props.getWeather(city, country);
@@ -19,10 +15,10 @@ class SearchFavourite extends React.Component {
       <select
         className="custom-select"
         onChange={this.handleChange}
-        value={this.state.selected}
+        value=""
         name="select"
       >
-        <option value="" disabled selected>
+        <option value="" disabled>
           {this.props.defaultText}
         </option>
         {this.props.array.slice(0, 5).map((location, index) => {
