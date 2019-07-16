@@ -12,7 +12,7 @@ The backend it's built in Ruby on Rails with a PostgreSQL database, using an obj
 - A User has many FavouriteCities.
 - A FavouriteCity belongs to a User.
 
-There are API endpoints for all models. The app uses mainly the User endpoint. Authentication and authoritation are done with Rails, using bcrypt for encyption.
+There are API endpoints for all models. The app uses mainly the User endpoint. Authoritation is done with Rails, using bcrypt for encyption.
 
 ## Client
 The client-side of the application is built in React. The style is done by a combination of Semantic and CSS.
@@ -26,3 +26,11 @@ The client-side of the application is built in React. The style is done by a com
 6. Go to the front-end folder.
 7. Run `npm install`.
 8. Run `npm start`.
+
+## Screenshots and Gif
+
+Log in:
+![Log in](https://github.com/DarkScarbo/Mod-5-Project---My-Piano-Teaching-Website/blob/master/front-end/public/Student-Booking.gif)
+
+Make a Booking as a Student:
+![Make a Booking as a Student](https://github.com/DarkScarbo/Mod-5-Project---My-Piano-Teaching-Website/blob/master/front-end/public/Student-Booking.gif)
