@@ -12,7 +12,7 @@ The backend it's built in Ruby on Rails with a PostgreSQL database, using an obj
 - A User has many FavouriteCities.
 - A FavouriteCity belongs to a User.
 
-There are API endpoints for all models. The app uses mainly the User endpoint. Authoritation is done with Rails, using bcrypt for encyption.
+The app is fetching the openweathermap.org Api. Authoritation is done with Rails, using bcrypt for encyption.
 
 ## Client
 The client-side of the application is built in React. The style is done by a combination of Semantic and CSS.
