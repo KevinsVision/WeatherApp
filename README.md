@@ -30,7 +30,7 @@ The client-side of the application is built in React. The style is done by a com
 ## Screenshots and Gif
 
 Log in:
-![Log in](https://github.com/DarkScarbo/Mod-5-Project---My-Piano-Teaching-Website/blob/master/front-end/public/Student-Booking.gif)
+![Log in](https://github.com/DarkScarbo/Mod-4-Project---Weather-App/blob/master/frontend/public/Screenshot%202019-07-16%20at%2015.06.30.png)
 
-Make a Booking as a Student:
-![Make a Booking as a Student](https://github.com/DarkScarbo/Mod-5-Project---My-Piano-Teaching-Website/blob/master/front-end/public/Student-Booking.gif)
+Functionality:
+![Functionality](https://github.com/DarkScarbo/Mod-4-Project---Weather-App/blob/master/frontend/public/Weather-App.gif)
